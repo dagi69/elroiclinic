@@ -116,6 +116,10 @@
       margin-top: 2px;
     }
     .tel { font-size: 1rem; font-weight: bold; margin-top: 2px; }
+    .location{
+        margin-top: -5px;
+        font-weight: bold;
+      }
 
     .patient-row {
       display: flex;
@@ -306,7 +310,7 @@
 
       
       .header {
-        opacity:0;
+        opacity: 0;
         margin-bottom: 0.6em !important;
         padding-bottom: 0.4em !important;
         gap: 0.6em !important;
@@ -460,7 +464,8 @@
   <div class="top-bar">
   <div class="site-select-wrap">
     <select id="siteSelect" class="site-select" onchange="window.location.href=this.value;">
-      <option value="lab.html">Lab Report</option>
+      <option value="lab.html">Lab Report - Color</option>
+      <option value="labdefault.html">Lab Report</option>
       <option value="medical.html">Medical Certificate</option>
       <option value="Referral.html">Referral Form</option>
       <option value="CASH INVOICE.html">ATTACHMENT CASH INVOICE</option>
@@ -478,7 +483,8 @@
         <div class="header-text">
           <div class="clinic-name">ELROI MEDIUM CLINIC</div>
           <div class="form-title">LABORATORY REQUEST FORM</div>
-          <div class="tel">Tel: 0946555575</div>
+          <div class="tel">Tel: 251946555575</div>
+          <div class="location">Hawassa</div>
         </div>
         <div class="photo"></div>
       </div>
