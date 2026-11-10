@@ -98,10 +98,10 @@ body{font-family:"Times New Roman",serif;color:#111;font-size:9.5px}
 .meta .l{width:13%;font-weight:bold; font-size: 11px;}
 .meta .v{width:37%; font-weight:bold}
 input{width:100%;border:0;outline:0;background:transparent;padding:0;margin:0;color:inherit; font-weight:100;}
-.items{width:100%;border-collapse:collapse;table-layout:fixed}
-.items th,.items td{border:1px solid #333;padding:1.2mm 1.4mm;vertical-align:top}
-.items th{height:7.5mm;text-align:center;font-weight:bold;vertical-align:middle}
-.items td{height:auto;min-height:8mm}
+.items{width:100%;border-collapse:collapse;table-layout:fixed;--row-scale:1;font-size:calc(9.5px * var(--row-scale))}
+.items th,.items td{border:1px solid #333;padding:calc(1.2mm * var(--row-scale)) calc(1.4mm * var(--row-scale));vertical-align:top}
+.items th{height:calc(7.5mm * var(--row-scale));text-align:center;font-weight:bold;vertical-align:middle}
+.items td{height:auto;min-height:calc(8mm * var(--row-scale))}
 .items th:nth-child(1),.items td:nth-child(1){width:14%;text-align:center}
 .items th:nth-child(2),.items td:nth-child(2){width:46%}
 .items th:nth-child(3),.items td:nth-child(3){width:20%;text-align:right}
@@ -110,14 +110,14 @@ input{width:100%;border:0;outline:0;background:transparent;padding:0;margin:0;co
 .items .line-list{display:flex;flex-direction:column;gap:0;width:100%}
 .items .line-input{
   width:100%;border:0;outline:0;background:transparent;padding:1.5px 0;margin:0;
-  font:inherit;color:inherit;line-height:1.4;min-height:5mm;
+  font:inherit;color:inherit;line-height:1.4;min-height:calc(5mm * var(--row-scale));
 }
 .items .id-list .line-input{text-align:center;font-weight:bold}
 .items .desc .line-input{text-align:left}
 .items .price .line-input{text-align:right}
-.items td.total-cell{vertical-align:middle;text-align:right;font-weight:bold;font-size:12px}
+.items td.total-cell{vertical-align:middle;text-align:right;font-weight:bold;font-size:calc(12px * var(--row-scale))}
 .items .desc-text,.items .price-text,.items .id-text{
-  display:block;line-height:1.4;white-space:pre-wrap
+  display:block;line-height:1.4;white-space:pre-wrap;font-size:inherit
 }
 .items .id-text{text-align:center;font-weight:bold}
 .items .price-text{text-align:right}
@@ -365,6 +365,28 @@ function rows(){
   addItemLine(false);
 }
 
+// Keep the medication table and amount-in-words section above the fixed footer.
+// Only the medication table is compacted; the footer and other invoice elements stay unchanged.
+function fitMedicationTable(){
+  const paper=document.getElementById("receipt");
+  const table=paper && paper.querySelector(".items");
+  const summary=paper && paper.querySelector(".summary");
+  const footer=paper && paper.querySelector(".footer");
+  if(!paper || !table || !summary || !footer) return;
+
+  const minScale=0.35;
+  const step=0.95;
+  let scale=1;
+  table.style.setProperty("--row-scale", String(scale));
+
+  // A small safety gap prevents the summary from touching the footer.
+  const safetyGap=6;
+  while(summary.getBoundingClientRect().bottom > footer.getBoundingClientRect().top - safetyGap && scale > minScale){
+    scale=Math.max(minScale, scale*step);
+    table.style.setProperty("--row-scale", String(scale));
+  }
+}
+
 function calc(){
   let t=0;
   document.querySelectorAll("#priceList .line-input").forEach(function(p){
@@ -375,6 +397,7 @@ function calc(){
   if(gt) gt.textContent=t.toFixed(2);
   const wordsEl=document.getElementById("words");
   if(wordsEl) wordsEl.textContent=moneyWords(t);
+  fitMedicationTable();
 }
 
 function moneyWords(n){
@@ -448,6 +471,8 @@ function loadScript(src){
 
 
 rows();calc();clock();setInterval(clock,1000);
+window.addEventListener("resize",fitMedicationTable);
+window.addEventListener("beforeprint",fitMedicationTable);
 </script>
 </body>
 </html>
