@@ -179,7 +179,7 @@
       background: transparent;
       padding: 2px 3px;
       font-size: 0.9rem;
-      width: 92px;
+      width: 110px;
       flex-shrink: 0;
     }
     #ethDate:focus { outline: none; border-bottom-color: var(--primary); }
@@ -353,7 +353,7 @@
         flex-wrap: nowrap !important;
         white-space: nowrap !important;
       }
-      #ethDate { width: 5.8em !important; }
+      #ethDate { width: 7.3em !important; }
       .field-phone input, .field-req input {
         width: 100% !important;
         min-width: 0 !important;
@@ -510,7 +510,7 @@
           <label>Date</label>
           <span class="datetime-inline">
             <input type="text" id="ethDate" readonly title="Ethiopian calendar date">
-            <span id="liveTime">12:00:00 PM</span>
+            <span id="liveTime">12:00:00 PM</span> 
           </span>
         </div>
         
@@ -530,17 +530,7 @@
               <label for="cbc">CBC</label>
               <input type="text" id="cbcNote">
             </div>
-            <div class="test-row">
-              <input type="checkbox" id="wbc">
-              <label for="wbc">WBC (Leukocytes)</label>
-              <input type="text" id="wbcNote">
-            </div>
-            <div class="test-row"><label>Differentials</label></div>
-            <div class="test-row indent">
-              <input type="checkbox" id="unsegNeutro">
-              <label for="unsegNeutro">Unseg Neutro</label>
-              <input type="text" id="unsegNeutroNote">
-            </div>
+            
             <div class="test-row">
               <input type="checkbox" id="bf">
               <label for="bf">BF (Haemoparasites)</label>
@@ -561,12 +551,52 @@
               <label for="rbs">RBS</label>
               <input type="text" id="rbsNote">
             </div>
-            <div class="test-row indent">
-              <input type="checkbox" id="fbs">
-              <label for="fbs">FBS</label>
-              <input type="text" id="fbsNote">
+          </div>
+
+          <div class="section">
+            <div class="section-title">Parasitology</div>
+            <div class="test-row">
+              <input type="checkbox" id="stoolExam">
+              <label for="stoolExam">Stool Examination</label>
+              <input type="text" id="stoolExamNote">
             </div>
           </div>
+
+          <div class="section">
+            <div class="section-title">Bacteriology</div>
+           
+            <div class="test-row">
+              <input type="checkbox" id="afs">
+              <label for="afs">Acid Fast Stain (AFS)</label>
+              <input type="text" id="afsNote">
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Urinalysis</div>
+            <div class="test-row">
+              <input type="checkbox" id="hcg">
+              <label for="hcg">Pregnancy Test (HCG)</label>
+              <input type="text" id="hcgNote">
+              </div>
+
+              <div class="test-row">
+              <input type="checkbox" id="Micro">
+              <label for="Micro">Microscopy</label>
+              <input type="text" id="Micronote">
+              </div>
+
+              <div class="test-row">
+              <input type="checkbox" id="Dipi">
+              <label for="Dipi">Urin Dipistic</label>
+              <input type="text" id="Dipinote">
+              </div>
+          </div>
+
+
+
+
+          
         </div>
 
         <div>
@@ -605,52 +635,14 @@
             </div>
           </div>
 
-          <div class="section">
-            <div class="section-title">Parasitology</div>
-            <div class="test-row">
-              <input type="checkbox" id="stoolExam">
-              <label for="stoolExam">Stool Examination</label>
-              <input type="text" id="stoolExamNote">
-            </div>
-          </div>
+          
 
-          <div class="section">
-            <div class="section-title">Bacteriology</div>
-            <div class="test-row">
-              <input type="checkbox" id="koh">
-              <label for="koh">KOH</label>
-              <input type="text" id="kohNote">
-            </div>
-            <div class="test-row">
-              <input type="checkbox" id="afs">
-              <label for="afs">Acid Fast Stain (AFS)</label>
-              <input type="text" id="afsNote">
-            </div>
-          </div>
+          
 
-          <div class="section">
-            <div class="section-title">Urinalysis</div>
-            <div class="test-row">
-              <input type="checkbox" id="hcg">
-              <label for="hcg">Pregnancy Test (HCG)</label>
-              <input type="text" id="hcgNote">
-              </div>
-
-              <div class="test-row">
-              <input type="checkbox" id="Micro">
-              <label for="Micro">Microscopy</label>
-              <input type="text" id="Micronote">
-              </div>
-
-              <div class="test-row">
-              <input type="checkbox" id="Dipi">
-              <label for="Dipi">Urin Dipistic</label>
-              <input type="text" id="Dipinote">
-              </div>
+          
 
 
-            
-          </div>
+
         </div>
       </div>
 
@@ -691,7 +683,7 @@
     }
 
     function setEthiopianDate() {
-      document.getElementById('ethDate').value = gregorianToEthiopian(new Date());
+      document.getElementById('ethDate').value = gregorianToEthiopian(new Date()) + '  EC';
     }
 
     function updateLiveTime() {
